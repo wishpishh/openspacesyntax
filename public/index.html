@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+	<title></title>
+	<style>
+		* { margin: 0; }
+	</style>
+	<script src="javascripts/jquery-2.0.3.min.js"></script>
+	<script src="javascripts/two.min.js"></script>
+	<script src="javascripts/Map.js"></script>
+	<script src="javascripts/Projection.js"></script>
+	<script src="javascripts/Renderer.js"></script>
+	<script>
+		$(function() {
+			var mapContainer = $('#map-container')[0];
+			
+			$.ajax({
+				url: 'map',
+				success: function(data) {
+					var map = new Map({
+						container: mapContainer,
+						width: 800,
+						height: 800,
+						bbox: data.bbox
+					});
+					
+					$.each(data.features, function(index, feature) {
+						map.addFeature(feature);
+					});
+				}
+			});
+		});
+	</script>
+</head>
+<body>
+	<div id="map-container"></div>
+</body>
+</html>
